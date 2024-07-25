@@ -1,8 +1,8 @@
 import streamlit as st
 from langchain_core.messages import HumanMessage
 import os
-from data_loading import load_data
-from processing import process_data
+from src/data_loading import load_data
+from src/processing import process_data
 from model_initialization import initialize_model, initialize_llm
 from langchain.docstore.document import Document
 

@@ -1,12 +1,30 @@
 import streamlit as st
 from langchain_core.messages import HumanMessage
 import os
-from src.data_loading import load_data
-from src.processing import process_data
-from src.model_initialization import initialize_model, initialize_llm
 from langchain.docstore.document import Document
 from langchain_community.document_loaders import WebBaseLoader, PyPDFLoader, YoutubeLoader
 from langchain_community.document_loaders.merge import MergedDataLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_chroma import Chroma
+
+def process_data(docs_all):
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1200,
+        chunk_overlap=200,
+        length_function=len,
+    )
+    docs_chunks = text_splitter.split_documents(docs_all)
+    
+    model_name = "BAAI/bge-small-en"
+    model_kwargs = {"device": "cpu"}
+    encode_kwargs = {"normalize_embeddings": True}
+    hf = HuggingFaceBgeEmbeddings(
+        model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
+    )
+    
+    vectorstore = Chroma.from_documents(documents=docs_chunks, embedding=hf)
+    return vectorstore
 
 def load_data():
     web_loader = WebBaseLoader("https://www.apple.com/apple-vision-pro/")

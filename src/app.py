@@ -5,6 +5,17 @@ from src.data_loading import load_data
 from src.processing import process_data
 from src.model_initialization import initialize_model, initialize_llm
 from langchain.docstore.document import Document
+from langchain_community.document_loaders import WebBaseLoader, PyPDFLoader, YoutubeLoader
+from langchain_community.document_loaders.merge import MergedDataLoader
+
+def load_data():
+    web_loader = WebBaseLoader("https://www.apple.com/apple-vision-pro/")
+    loader = YoutubeLoader.from_youtube_url(
+        "https://www.youtube.com/watch?v=TX9qSaGXFyg", add_video_info=True
+    )
+    loader_pdf = PyPDFLoader("Apple_Vision_Pro_Privacy_Overview.pdf")
+    loader_all = MergedDataLoader(loaders=[web_loader, loader, loader_pdf])
+    return loader_all.load()
 
 def format_source(source):
     """Format the source information for better readability."""

@@ -78,3 +78,7 @@ A Streamlit application allows users to interact with the chatbot. Key features 
     ```sh
     streamlit run main.py
     ```
+
+[streamlit-app-2024-07-25-18-07-14.webm](https://github.com/user-attachments/assets/85868705-cc52-481a-b784-1b63d1b422ee)
+
+

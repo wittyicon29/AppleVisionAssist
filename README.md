@@ -76,7 +76,7 @@ A Streamlit application allows users to interact with the chatbot. Key features 
 
 3. **Run the Application**:
     ```sh
-    streamlit run main.py
+    streamlit run src/app.py
     ```
 
 [Demo](https://github.com/user-attachments/assets/85868705-cc52-481a-b784-1b63d1b422ee)
